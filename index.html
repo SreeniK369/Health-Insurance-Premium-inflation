@@ -5,14 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Health Insurance Premium Projection — Sreeni. K</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --navy:#0f1f3d;
+  --navy2:#16306b;
   --gold:#c9a84c;
   --gold-light:#e8c97a;
+  --gold-pale:#fdf6e3;
   --cream:#faf8f3;
   --cream2:#f2ede2;
   --text:#1a1a2e;
@@ -20,42 +22,89 @@
   --green:#2d6a4f;
   --green-light:#e8f5ee;
   --red:#c0392b;
-  --red-light:#fdecea;
   --border:#e2ddd3;
   --white:#ffffff;
 }
-
 html,body{min-height:100vh;background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;}
 
-/* ── HEADER ── */
-.header{background:var(--navy);overflow:hidden;position:relative;}
-.header::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;border-radius:50%;background:rgba(201,168,76,0.07);}
-.header::after{content:'';position:absolute;bottom:-40px;left:25%;width:150px;height:150px;border-radius:50%;background:rgba(201,168,76,0.04);}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:24px 32px 18px;position:relative;z-index:2;}
-.brand-block{display:flex;align-items:center;gap:16px;}
-.brand-monogram{width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--navy);flex-shrink:0;letter-spacing:-1px;}
-.brand-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:#fff;line-height:1.2;}
-.brand-title{font-size:12px;color:var(--gold-light);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px;font-weight:300;}
-.header-tag{background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:6px 16px;font-size:11px;color:var(--gold-light);letter-spacing:0.06em;text-transform:uppercase;font-weight:400;}
-.header-strip{background:rgba(201,168,76,0.1);border-top:1px solid rgba(201,168,76,0.18);padding:10px 32px;display:flex;align-items:center;gap:8px;position:relative;z-index:2;}
-.header-strip span{font-size:12px;color:rgba(255,255,255,0.55);}
-.header-strip strong{font-size:12px;color:var(--gold-light);font-weight:400;}
+/* ═══════════════════════════════
+   HERO HEADER
+═══════════════════════════════ */
+.header{background:var(--navy);position:relative;overflow:hidden;}
 
-/* ── MAIN ── */
+/* decorative circles */
+.header::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:rgba(201,168,76,0.07);}
+.header::after{content:'';position:absolute;bottom:-60px;left:10%;width:220px;height:220px;border-radius:50%;background:rgba(201,168,76,0.04);}
+.header-decor{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+.header-decor span{position:absolute;border-radius:50%;background:rgba(255,255,255,0.025);}
+.header-decor span:nth-child(1){width:500px;height:500px;top:-200px;right:-100px;}
+.header-decor span:nth-child(2){width:200px;height:200px;bottom:-80px;left:5%;}
+.header-decor span:nth-child(3){width:100px;height:100px;top:20px;left:40%;}
+
+/* top nav bar */
+.header-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid rgba(201,168,76,0.15);position:relative;z-index:3;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-mono{width:34px;height:34px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);}
+.nav-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:rgba(255,255,255,0.9);}
+.nav-links{display:flex;align-items:center;gap:20px;}
+.nav-links a{font-size:12px;color:rgba(255,255,255,0.55);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-tag{background:rgba(201,168,76,0.2);border:1px solid rgba(201,168,76,0.4);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--gold-light);letter-spacing:0.07em;text-transform:uppercase;}
+
+/* hero body */
+.header-hero{padding:52px 40px 48px;position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.hero-left{flex:1;min-width:260px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:5px 14px;margin-bottom:18px;}
+.hero-eyebrow span{font-size:11px;color:var(--gold-light);letter-spacing:0.1em;text-transform:uppercase;font-weight:500;}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.hero-name{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:#ffffff;line-height:1.05;letter-spacing:-1px;margin-bottom:6px;}
+.hero-name em{color:var(--gold-light);font-style:normal;}
+.hero-designation{font-size:15px;color:rgba(255,255,255,0.55);font-weight:300;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:22px;}
+.hero-contacts{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.hero-contact-item{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.hero-contact-item .icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.hero-contact-item .info{display:flex;flex-direction:column;}
+.hero-contact-item .info-label{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.06em;text-transform:uppercase;}
+.hero-contact-item .info-val{font-size:13px;color:var(--gold-light);font-weight:500;}
+
+/* hero right — tool badge */
+.hero-right{flex-shrink:0;}
+.tool-badge{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:20px 24px;text-align:center;min-width:200px;}
+.tool-badge-icon{font-size:32px;margin-bottom:10px;}
+.tool-badge-title{font-family:'Playfair Display',serif;font-size:15px;color:#fff;font-weight:600;margin-bottom:4px;line-height:1.3;}
+.tool-badge-sub{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5;}
+
+/* bottom strip */
+.header-strip{background:rgba(201,168,76,0.08);border-top:1px solid rgba(201,168,76,0.15);padding:10px 40px;display:flex;align-items:center;gap:6px;position:relative;z-index:2;flex-wrap:wrap;}
+.header-strip span{font-size:12px;color:rgba(255,255,255,0.4);}
+.header-strip strong{font-size:12px;color:rgba(201,168,76,0.8);font-weight:400;}
+
+/* ═══════════════════════════════
+   MAIN
+═══════════════════════════════ */
 .main{padding:28px 24px 40px;max-width:820px;margin:0 auto;}
 
-/* ── CARD ── */
 .card{background:var(--white);border-radius:16px;border:1px solid var(--border);padding:22px;margin-bottom:18px;}
 .card-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--navy);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
 .card-title .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;}
 
-/* ── IRDAI ── */
 .irdai-note{display:flex;align-items:flex-start;gap:12px;background:var(--green-light);border:1px solid #b7e4c7;border-radius:12px;padding:14px 16px;margin-bottom:18px;}
 .irdai-icon{width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .irdai-text{font-size:13px;color:#1b4332;line-height:1.65;}
 .irdai-text strong{font-weight:500;}
 
-/* ── CONTROLS ── */
+/* CUSTOMER BAND */
+.customer-band{background:linear-gradient(135deg,#0f1f3d 60%,#1a3360);border-radius:14px;padding:20px 22px;margin-bottom:18px;border:1px solid rgba(201,168,76,0.25);}
+.customer-band-title{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold-light);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.customer-band-title::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.customer-inputs{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ci{display:flex;flex-direction:column;gap:7px;}
+.ci label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.07em;font-weight:500;}
+.ci input{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;padding:12px 14px;border-radius:10px;border:1px solid rgba(201,168,76,0.3);background:rgba(255,255,255,0.07);color:#fff;width:100%;outline:none;transition:border-color 0.2s;}
+.ci input:focus{border-color:var(--gold);}
+.ci input::placeholder{color:rgba(255,255,255,0.2);font-weight:300;font-size:14px;}
+.ci .hint{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px;}
+
 .controls-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .ctrl{display:flex;flex-direction:column;gap:7px;}
 .ctrl label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:500;}
@@ -81,7 +130,6 @@ html,body{min-height:100vh;background:var(--cream);color:var(--text);font-family
 input:checked+.slider-t{background:var(--green);}
 input:checked+.slider-t:before{transform:translateX(19px);}
 
-/* ── METRICS ── */
 .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:18px;}
 .metric{background:var(--white);border-radius:14px;border:1px solid var(--border);padding:18px 20px;position:relative;overflow:hidden;}
 .metric::after{content:'';position:absolute;bottom:-18px;right:-18px;width:70px;height:70px;border-radius:50%;background:var(--cream2);}
@@ -93,7 +141,6 @@ input:checked+.slider-t:before{transform:translateX(19px);}
 .m-sub{font-size:11px;color:var(--muted);margin-top:5px;}
 .accent .m-sub{color:rgba(255,255,255,0.38);}
 
-/* ── CHART ── */
 .chart-card{background:var(--white);border-radius:16px;border:1px solid var(--border);padding:22px;margin-bottom:18px;}
 .chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
 .chart-wrap{position:relative;width:100%;height:300px;}
@@ -101,7 +148,6 @@ input:checked+.slider-t:before{transform:translateX(19px);}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
 .legend-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
 
-/* ── TABLE ── */
 .tbl-card{background:var(--white);border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-bottom:18px;}
 .tbl-head{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
 .tbl-head-note{font-size:11px;color:var(--muted);}
@@ -112,71 +158,113 @@ tbody tr{border-bottom:1px solid var(--border);}
 tbody tr:last-child{border-bottom:none;}
 tbody tr.hike-yr{background:#fef9ef;}
 tbody tr.cap-yr{background:var(--green-light);}
+tbody tr.start-yr{background:rgba(201,168,76,0.08);}
 tbody tr:hover{background:var(--cream2);}
 tbody td{padding:10px 16px;color:var(--text);white-space:nowrap;vertical-align:middle;}
 .pill{display:inline-block;font-size:10px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
 .pill-gold{background:#fef3cd;color:#7a5c00;}
 .pill-green{background:var(--green-light);color:var(--green);}
 .pill-gray{background:var(--cream2);color:var(--muted);}
+.pill-navy{background:#e8edf5;color:#0f1f3d;}
 
-/* ── DISCLAIMER ── */
 .disclaimer{background:var(--white);border-radius:16px;border:1px solid var(--border);padding:20px 22px;margin-bottom:18px;}
 .disclaimer p{font-size:12px;color:var(--muted);line-height:1.75;}
 .disclaimer strong{color:var(--text);font-weight:500;}
 
-/* ── FOOTER ── */
-.footer{text-align:center;padding:24px 20px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);line-height:1.9;}
-.footer strong{color:var(--navy);font-weight:500;}
-.footer .contact-line{margin-top:8px;font-size:13px;color:var(--navy);font-family:'Playfair Display',serif;}
+/* FOOTER */
+.footer{background:var(--navy);padding:32px 40px;text-align:center;}
+.footer-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:6px;}
+.footer-name em{color:var(--gold-light);font-style:normal;}
+.footer-title{font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px;}
+.footer-contacts{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:18px;}
+.footer-contacts a{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;color:var(--gold-light);}
+.footer-contacts a:hover{color:#fff;}
+.footer-disclaimer{font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7;max-width:560px;margin:0 auto;}
 
-/* ── PRINT ── */
 @media print{
-  .header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .metric.accent{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .header,.footer,.metric.accent,.customer-band{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 }
-
-/* ── RESPONSIVE ── */
-@media(max-width:560px){
-  .header-inner{padding:18px 18px 14px;}
-  .header-strip{padding:9px 18px;}
+@media(max-width:640px){
+  .header-nav{padding:12px 20px;}
+  .header-hero{padding:36px 20px 32px;}
+  .hero-name{font-size:36px;}
+  .hero-right{display:none;}
+  .header-strip{padding:9px 20px;}
   .main{padding:18px 14px 32px;}
-  .controls-grid{grid-template-columns:1fr;}
+  .controls-grid,.customer-inputs{grid-template-columns:1fr;}
   .metrics{grid-template-columns:1fr 1fr;}
   .chart-header{flex-direction:column;align-items:flex-start;}
+  .footer{padding:24px 20px;}
+  .nav-links{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ═══ HEADER ═══ -->
 <div class="header">
-  <div class="header-inner">
-    <div class="brand-block">
-      <div class="brand-monogram">SK</div>
-      <div>
-        <div class="brand-name">Sreeni. K</div>
-        <div class="brand-title">Investment &amp; Insurance Advisor &nbsp;·&nbsp; CFP</div>
-<div style="margin-top:5px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-  <a href="tel:8939665931" style="font-size:12px;color:var(--gold-light);text-decoration:none;letter-spacing:0.04em;">📞 89396 65931</a>
-  <a href="https://www.facebook.com/KSreeni369" target="_blank" style="font-size:12px;color:var(--gold-light);text-decoration:none;letter-spacing:0.04em;">📘 facebook.com/KSreeni369</a>
-</div>
+  <div class="header-decor">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- top nav -->
+  <div class="header-nav">
+    <div class="nav-logo">
+      <div class="nav-mono">SK</div>
+      <div class="nav-name">Sreeni. K</div>
+    </div>
+    <div class="nav-links">
+      <a href="tel:8939665931">📞 89396 65931</a>
+      <a href="https://www.facebook.com/KSreeni369" target="_blank">📘 Facebook</a>
+      <div class="nav-tag">CFP Certified</div>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <div class="header-hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow"><span>Investment &amp; Insurance Advisor</span></div>
+      <div class="hero-name">Sreeni. <em>K</em></div>
+      <div class="hero-designation">Certified Financial Planner &nbsp;·&nbsp; CFP</div>
+      <div class="hero-contacts">
+        <a class="hero-contact-item" href="tel:8939665931">
+          <div class="icon">📞</div>
+          <div class="info">
+            <div class="info-label">Call / WhatsApp</div>
+            <div class="info-val">89396 65931</div>
+          </div>
+        </a>
+        <a class="hero-contact-item" href="https://www.facebook.com/KSreeni369" target="_blank">
+          <div class="icon">📘</div>
+          <div class="info">
+            <div class="info-label">Facebook</div>
+            <div class="info-val">KSreeni369</div>
+          </div>
+        </a>
       </div>
     </div>
-    <div class="header-tag">CFP Certified</div>
+    <div class="hero-right">
+      <div class="tool-badge">
+        <div class="tool-badge-icon">🏥</div>
+        <div class="tool-badge-title">Health Insurance<br>Premium Projector</div>
+        <div class="tool-badge-sub">Family Floater · ₹10L SI<br>2 Adults + 2 Children</div>
+      </div>
+    </div>
   </div>
+
+  <!-- strip -->
   <div class="header-strip">
-    <span>Health Insurance Premium Projection</span>
-    <strong>&nbsp;·&nbsp; Family Floater ₹10 Lakh SI &nbsp;·&nbsp; 2 Adults + 2 Children</strong>
+    <span>Health Insurance Premium Projection Tool</span>
+    <strong>&nbsp;·&nbsp; No PED assumed &nbsp;·&nbsp; IRDAI 10% senior cap applied &nbsp;·&nbsp; Illustrative projection</strong>
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- ═══ MAIN ═══ -->
 <div class="main">
 
-  <!-- IRDAI NOTICE -->
   <div class="irdai-note">
     <div class="irdai-icon">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
         <circle cx="6.5" cy="6.5" r="5.5" stroke="white" stroke-width="1.2"/>
         <path d="M6.5 3.5V7" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
         <circle cx="6.5" cy="9.5" r="0.7" fill="white"/>
@@ -184,6 +272,23 @@ tbody td{padding:10px 16px;color:var(--text);white-space:nowrap;vertical-align:m
     </div>
     <div class="irdai-text">
       <strong>IRDAI Regulation:</strong> For policyholders aged 60 and above, premium revision is capped at <strong>10% per revision cycle</strong>, regardless of the insurer's standard hike rate. This is automatically applied in the projection below.
+    </div>
+  </div>
+
+  <!-- CUSTOMER INPUT -->
+  <div class="customer-band">
+    <div class="customer-band-title">Enter your details — personalise this projection</div>
+    <div class="customer-inputs">
+      <div class="ci">
+        <label>Your current age</label>
+        <input type="number" id="startAge" value="30" min="18" max="75" placeholder="e.g. 40">
+        <div class="hint">Enter any age between 18 and 75</div>
+      </div>
+      <div class="ci">
+        <label>Your current annual premium (₹)</label>
+        <input type="number" id="startPremium" value="21000" min="1000" step="500" placeholder="e.g. 23000">
+        <div class="hint">Check your latest policy renewal notice</div>
+      </div>
     </div>
   </div>
 
@@ -221,11 +326,11 @@ tbody td{padding:10px 16px;color:var(--text);white-space:nowrap;vertical-align:m
   <!-- CHART -->
   <div class="chart-card">
     <div class="chart-header">
-      <div class="card-title" style="margin:0"><span class="dot"></span>Premium trajectory — Age 30 to 80</div>
+      <div class="card-title" style="margin:0"><span class="dot"></span>Premium trajectory</div>
       <div class="legend">
         <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div>Annual premium</div>
         <div class="legend-item"><div class="legend-dot" style="background:#2d6a4f;border-radius:50%"></div>Revision year</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#c9a84c;border-radius:50%;border:2px solid #2d6a4f"></div>IRDAI cap year</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c9a84c;border-radius:50%;border:2px solid #0f1f3d"></div>Your current age</div>
       </div>
     </div>
     <div class="chart-wrap"><canvas id="premChart"></canvas></div>
@@ -235,86 +340,88 @@ tbody td{padding:10px 16px;color:var(--text);white-space:nowrap;vertical-align:m
   <div class="tbl-card">
     <div class="tbl-head">
       <div class="card-title" style="margin:0;font-size:15px"><span class="dot"></span>Year-by-year breakdown</div>
-      <div class="tbl-head-note">▲ revision year &nbsp;·&nbsp; ✦ IRDAI cap applied &nbsp;·&nbsp; highlighted rows = change years</div>
+      <div class="tbl-head-note">★ your age today &nbsp;·&nbsp; ▲ revision year &nbsp;·&nbsp; ✦ IRDAI cap</div>
     </div>
     <div class="tbl-wrap" id="tblWrap"></div>
   </div>
 
   <!-- DISCLAIMER -->
   <div class="disclaimer">
-    <p>
-      <strong>How this is calculated:</strong> Starting premium ₹21,000 at age 30 (actual insurer data for Family Floater ₹10L SI, 2 adults + 2 children). Premium remains unchanged between revision cycles. At each revision, the hike % is applied on the running premium. Post age 60, IRDAI regulation caps hike at 10% per cycle. Claims loading of 5% is optional and reflects real-world insurer practice for policies with prior claims.
-    </p>
+    <p><strong>How this is calculated:</strong> Projection starts from your entered age and current annual premium. Premium stays unchanged between revision cycles. At each revision, the hike % is applied on the running premium. Post age 60, IRDAI regulation caps the hike at 10% per cycle. All projections run up to age 80.</p>
     <br>
-    <p>
-      <strong>Disclaimer:</strong> This projection is illustrative and prepared for financial planning awareness. Actual premiums depend on the insurer, policy terms, claims history, underwriting changes, and regulatory guidelines at the time of renewal. Past pricing trends are not a guarantee of future rates.
-    </p>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    Prepared by <strong>Sreeni. K</strong> — Investment &amp; Insurance Advisor, CFP<br>
-    <span style="font-size:11px">For personalised health insurance and investment planning advice —</span>
-    <div class="contact-line">Get in touch with Sreeni. K, CFP</div>
+    <p><strong>Important assumptions:</strong> This calculation assumes a <strong>standard healthy individual with No Pre-Existing Diseases (No PED)</strong> at the time of policy inception. Individuals with PED may face additional loading, waiting periods, or exclusions at the insurer's discretion, which are not reflected here.</p>
+    <br>
+    <p><strong>Plain language summary:</strong> This tool shows a simple straight-line projection of how your health insurance premium could grow over the years based on periodic insurer revisions alone. It does not account for policy upgrades, sum insured changes, GST revisions, or any special discounts. The goal is to help you plan ahead — so your health cover never lapses when you need it most.</p>
+    <br>
+    <p><strong>Disclaimer:</strong> This projection is illustrative and prepared for financial planning awareness. Actual premiums depend on the insurer, policy terms, claims history, underwriting changes, and regulatory guidelines at the time of renewal. Past pricing trends are not a guarantee of future rates.</p>
   </div>
 
 </div>
 
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <div class="footer-name">Sreeni. <em>K</em></div>
+  <div class="footer-title">Investment &amp; Insurance Advisor &nbsp;·&nbsp; CFP Certified</div>
+  <div class="footer-contacts">
+    <a href="tel:8939665931">📞 89396 65931</a>
+    <a href="https://www.facebook.com/KSreeni369" target="_blank">📘 facebook.com/KSreeni369</a>
+  </div>
+  <div class="footer-disclaimer">
+    This tool is for financial planning awareness only. Not a substitute for professional advice. Projections are illustrative. No PED assumed. IRDAI guidelines applied as of current regulations.
+  </div>
+</div>
+
 <script>
-function buildData(interval, hikeBelow, addClaims) {
+function buildData(startAge, startPremium, interval, hikeBelow, addClaims) {
   const rows = [];
-  let premium = 21000;
+  let premium = Math.round(startPremium);
   let cumulative = 0;
   let prev = null;
-
-  for (let age = 30; age <= 80; age++) {
-    let revised = false;
-    let cappedIRDAI = false;
-    let claimsAdded = false;
-    let hikeRate = 0;
-
-    if (age > 30 && (age - 30) % interval === 0) {
+  for (let age = startAge; age <= 80; age++) {
+    let revised=false, cappedIRDAI=false, claimsAdded=false, hikeRate=0;
+    if (age > startAge && (age - startAge) % interval === 0) {
       revised = true;
       let rate = age >= 60 ? Math.min(hikeBelow, 10) : hikeBelow;
       cappedIRDAI = (age >= 60 && hikeBelow > 10);
-      if (addClaims) { rate = Math.min(rate + 5, age >= 60 ? 10 : rate + 5); claimsAdded = true; }
+      if (addClaims && age < 60) { rate += 5; claimsAdded = true; }
       hikeRate = rate;
       premium = Math.round(premium * (1 + rate / 100));
     }
-
     cumulative += premium;
     const yoy = prev ? Math.round(((premium - prev) / prev) * 100) : 0;
-    rows.push({ age, premium, revised, cappedIRDAI, claimsAdded, hikeRate, yoy, cumulative });
+    rows.push({ age, premium, revised, cappedIRDAI, claimsAdded, hikeRate, yoy, cumulative, isStart: age === startAge });
     prev = premium;
   }
   return rows;
 }
 
 function fmt(n) {
-  if (n >= 10000000) return '₹' + (n / 10000000).toFixed(2) + ' Cr';
-  if (n >= 100000)   return '₹' + (n / 100000).toFixed(2) + 'L';
+  if (n >= 10000000) return '₹' + (n/10000000).toFixed(2) + ' Cr';
+  if (n >= 100000)   return '₹' + (n/100000).toFixed(2) + 'L';
   return '₹' + Math.round(n).toLocaleString('en-IN');
 }
 function fmtFull(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
 
-let chartInst = null;
+let chartInst = null, timer = null;
 
 function render() {
+  const startAge  = Math.max(18, Math.min(75, parseInt(document.getElementById('startAge').value)||30));
+  const startPrem = Math.max(1000, parseFloat(document.getElementById('startPremium').value)||21000);
   const interval  = parseInt(document.getElementById('interval').value);
-  const hikeBelow = parseFloat(document.getElementById('hikeBelow').value) || 12;
+  const hikeBelow = parseFloat(document.getElementById('hikeBelow').value)||12;
   const addClaims = document.getElementById('claimsToggle').checked;
-  const data = buildData(interval, hikeBelow, addClaims);
+  const data      = buildData(startAge, startPrem, interval, hikeBelow, addClaims);
 
-  const first = data[0];
-  const last  = data[data.length - 1];
-  const mult  = (last.premium / first.premium).toFixed(1);
-  const revisions = data.filter(d => d.revised).length;
+  const first=data[0], last=data[data.length-1];
+  const mult=(last.premium/first.premium).toFixed(1);
+  const revisions=data.filter(d=>d.revised).length;
+  const yearsLeft=80-startAge;
 
-  document.getElementById('metrics').innerHTML = `
+  document.getElementById('metrics').innerHTML=`
     <div class="metric">
-      <div class="m-label">Today's premium (Age 30)</div>
+      <div class="m-label">Current premium (Age ${startAge})</div>
       <div class="m-val">${fmtFull(first.premium)}</div>
-      <div class="m-sub">Annual outgo — starting point</div>
+      <div class="m-sub">Annual outgo today</div>
     </div>
     <div class="metric accent">
       <div class="m-label">At age 80</div>
@@ -322,145 +429,63 @@ function render() {
       <div class="m-sub">Annual outgo at peak age</div>
     </div>
     <div class="metric">
-      <div class="m-label">Total paid over 50 years</div>
+      <div class="m-label">Total paid (${yearsLeft} yrs)</div>
       <div class="m-val">${fmt(last.cumulative)}</div>
-      <div class="m-sub">${revisions} revision cycles</div>
+      <div class="m-sub">${revisions} revision cycles ahead</div>
     </div>
     <div class="metric">
       <div class="m-label">Premium multiplier</div>
       <div class="m-val">${mult}×</div>
-      <div class="m-sub">Age 30 → Age 80</div>
-    </div>
-  `;
+      <div class="m-sub">Age ${startAge} → Age 80</div>
+    </div>`;
 
-  const ages     = data.map(d => d.age);
-  const premiums = data.map(d => d.premium);
-  const ptRadius = data.map(d => d.revised ? 6 : 0);
-  const ptColor  = data.map(d => d.cappedIRDAI ? '#c9a84c' : (d.revised ? '#2d6a4f' : '#c9a84c'));
-  const ptBorder = data.map(d => d.cappedIRDAI ? '#2d6a4f' : (d.revised ? '#2d6a4f' : '#c9a84c'));
-  const ptBWidth = data.map(d => d.cappedIRDAI ? 2 : 0);
+  const ages=data.map(d=>d.age), premiums=data.map(d=>d.premium);
+  const ptRadius=data.map(d=>d.isStart?8:(d.revised?6:0));
+  const ptColor=data.map(d=>d.isStart?'#c9a84c':(d.cappedIRDAI?'#c9a84c':(d.revised?'#2d6a4f':'#c9a84c')));
+  const ptBorder=data.map(d=>d.isStart?'#0f1f3d':(d.cappedIRDAI?'#2d6a4f':(d.revised?'#2d6a4f':'#c9a84c')));
+  const ptBWidth=data.map(d=>d.isStart?3:(d.cappedIRDAI?2:0));
 
-  if (chartInst) { chartInst.destroy(); chartInst = null; }
-  chartInst = new Chart(document.getElementById('premChart'), {
-    type: 'line',
-    data: {
-      labels: ages,
-      datasets: [{
-        data: premiums,
-        borderColor: '#c9a84c',
-        backgroundColor: 'rgba(201,168,76,0.08)',
-        fill: true,
-        tension: 0.4,
-        borderWidth: 2.5,
-        pointRadius: ptRadius,
-        pointBackgroundColor: ptColor,
-        pointBorderColor: ptBorder,
-        pointBorderWidth: ptBWidth,
-        pointHoverRadius: 7
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#0f1f3d',
-          titleColor: '#c9a84c',
-          bodyColor: 'rgba(255,255,255,0.8)',
-          padding: 12,
-          cornerRadius: 8,
-          callbacks: {
-            title: ctx => 'Age ' + ctx[0].label,
-            label: ctx => {
-              const r = data[ctx.dataIndex];
-              let s = '  ' + fmtFull(r.premium) + ' / year';
-              if (r.revised) {
-                s += '\n  Revised +' + r.hikeRate + '%';
-                if (r.cappedIRDAI) s += ' (IRDAI cap)';
-                if (r.claimsAdded) s += ' incl. claims loading';
-              }
-              s += '\n  Monthly: ' + fmtFull(Math.round(r.premium / 12));
-              return s;
-            }
-          }
+  if (chartInst){chartInst.destroy();chartInst=null;}
+  chartInst=new Chart(document.getElementById('premChart'),{
+    type:'line',
+    data:{labels:ages,datasets:[{data:premiums,borderColor:'#c9a84c',backgroundColor:'rgba(201,168,76,0.08)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:ptRadius,pointBackgroundColor:ptColor,pointBorderColor:ptBorder,pointBorderWidth:ptBWidth,pointHoverRadius:7}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f1f3d',titleColor:'#c9a84c',bodyColor:'rgba(255,255,255,0.8)',padding:12,cornerRadius:8,
+        callbacks:{
+          title:ctx=>'Age '+ctx[0].label,
+          label:ctx=>{const r=data[ctx.dataIndex];let s='  '+fmtFull(r.premium)+' / year';if(r.isStart)s+='  ← your current premium';else if(r.revised){s+='\n  Revised +'+r.hikeRate+'%';if(r.cappedIRDAI)s+=' (IRDAI cap)';if(r.claimsAdded)s+=' incl. claims loading';}s+='\n  Monthly: '+fmtFull(Math.round(r.premium/12));return s;}
         }
-      },
-      scales: {
-        x: {
-          grid: { color: 'rgba(0,0,0,0.04)' },
-          ticks: {
-            font: { size: 11, family: 'DM Sans' },
-            color: '#7a7a8a',
-            autoSkip: false,
-            maxRotation: 0,
-            callback: (v, i) => ages[i] % 5 === 0 ? ages[i] : ''
-          }
-        },
-        y: {
-          grid: { color: 'rgba(0,0,0,0.04)' },
-          ticks: {
-            font: { size: 11, family: 'DM Sans' },
-            color: '#7a7a8a',
-            callback: v => v >= 100000 ? '₹' + (v / 100000).toFixed(1) + 'L' : '₹' + (v / 1000).toFixed(0) + 'K'
-          }
-        }
+      }},
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11,family:'DM Sans'},color:'#7a7a8a',autoSkip:false,maxRotation:0,callback:(v,i)=>ages[i]%5===0?ages[i]:''}},
+        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11,family:'DM Sans'},color:'#7a7a8a',callback:v=>v>=100000?'₹'+(v/100000).toFixed(1)+'L':'₹'+(v/1000).toFixed(0)+'K'}}
       }
     }
   });
 
-  let html = `<table>
-    <thead><tr>
-      <th>Age</th>
-      <th>Annual premium</th>
-      <th>Monthly outgo</th>
-      <th>YoY change</th>
-      <th>Note</th>
-      <th>Cumulative paid</th>
-    </tr></thead>
-    <tbody>`;
-
-  for (const r of data) {
-    const trCls = r.cappedIRDAI ? ' class="cap-yr"' : (r.revised ? ' class="hike-yr"' : '');
-    const monthly = fmtFull(Math.round(r.premium / 12));
-    const marker  = r.cappedIRDAI ? ' ✦' : (r.revised ? ' ▲' : '');
-
-    let note = '';
-    if (r.age === 30) {
-      note = '<span class="pill pill-gray">Policy start</span>';
-    } else if (r.revised && r.cappedIRDAI) {
-      note = '<span class="pill pill-green">IRDAI cap — 10% max</span>';
-      if (r.claimsAdded) note += ' <span class="pill pill-gold">claims loading included</span>';
-    } else if (r.revised) {
-      note = `<span class="pill pill-gold">Insurer revision +${r.hikeRate}%${r.claimsAdded ? ' (incl. claims)' : ''}</span>`;
-    } else {
-      note = '<span class="pill pill-gray">No change</span>';
-    }
-
-    const chg = r.age === 30
-      ? '<span style="color:#7a7a8a">—</span>'
-      : (r.revised
-          ? `<span style="font-weight:500;color:${r.cappedIRDAI ? '#2d6a4f' : '#c0392b'}">+${r.yoy}%</span>`
-          : '<span style="color:#7a7a8a">—</span>');
-
-    html += `<tr${trCls}>
-      <td style="font-weight:${r.revised ? '500' : '400'};color:${r.revised ? '#0f1f3d' : 'inherit'}">${r.age}${marker}</td>
-      <td style="font-weight:500">${fmtFull(r.premium)}</td>
-      <td style="color:#7a7a8a">${monthly}</td>
-      <td>${chg}</td>
-      <td>${note}</td>
-      <td style="color:#7a7a8a">${fmt(r.cumulative)}</td>
-    </tr>`;
+  let html=`<table><thead><tr><th>Age</th><th>Annual premium</th><th>Monthly outgo</th><th>Change</th><th>Note</th><th>Cumulative paid</th></tr></thead><tbody>`;
+  for(const r of data){
+    const trCls=r.isStart?' class="start-yr"':(r.cappedIRDAI?' class="cap-yr"':(r.revised?' class="hike-yr"':''));
+    const monthly=fmtFull(Math.round(r.premium/12));
+    const marker=r.isStart?' ★':(r.cappedIRDAI?' ✦':(r.revised?' ▲':''));
+    let note='';
+    if(r.isStart) note='<span class="pill pill-navy">Your current age &amp; premium</span>';
+    else if(r.revised&&r.cappedIRDAI){note='<span class="pill pill-green">IRDAI cap — 10% max</span>';if(r.claimsAdded)note+=' <span class="pill pill-gold">+claims load</span>';}
+    else if(r.revised) note=`<span class="pill pill-gold">Insurer revision +${r.hikeRate}%${r.claimsAdded?' (incl. claims)':''}</span>`;
+    else note='<span class="pill pill-gray">No change</span>';
+    const chg=r.isStart?'<span style="color:#7a7a8a">—</span>':(r.revised?`<span style="font-weight:500;color:${r.cappedIRDAI?'#2d6a4f':'#c0392b'}">+${r.yoy}%</span>`:'<span style="color:#7a7a8a">—</span>');
+    html+=`<tr${trCls}><td style="font-weight:${(r.revised||r.isStart)?'500':'400'};color:${(r.revised||r.isStart)?'#0f1f3d':'inherit'}">${r.age}${marker}</td><td style="font-weight:500">${fmtFull(r.premium)}</td><td style="color:#7a7a8a">${monthly}</td><td>${chg}</td><td>${note}</td><td style="color:#7a7a8a">${fmt(r.cumulative)}</td></tr>`;
   }
-
-  html += '</tbody></table>';
-  document.getElementById('tblWrap').innerHTML = html;
+  html+='</tbody></table>';
+  document.getElementById('tblWrap').innerHTML=html;
 }
 
-document.getElementById('interval').addEventListener('change', render);
-document.getElementById('hikeBelow').addEventListener('input', render);
-document.getElementById('claimsToggle').addEventListener('change', render);
-
+function debounce(){clearTimeout(timer);timer=setTimeout(render,400);}
+document.getElementById('interval').addEventListener('change',render);
+document.getElementById('hikeBelow').addEventListener('input',debounce);
+document.getElementById('claimsToggle').addEventListener('change',render);
+document.getElementById('startAge').addEventListener('input',debounce);
+document.getElementById('startPremium').addEventListener('input',debounce);
 render();
 </script>
 </body>
